@@ -18,6 +18,8 @@ import aiohttp
 from .const import CONF_API_KEY, CONF_LATITUDE, CONF_LONGITUDE, VISUALCROSSING_BASE_URL
 from .data import ForecastData, ForecastDailyData, ForecastHourlyData
 
+UTC = datetime.timezone.utc
+
 _LOGGER = logging.getLogger(__name__)
 
 class VisualCrossingException(Exception):
@@ -126,3 +128,52 @@ class VisualCrossing:
 
 def _fetch_data(api_result: dict) -> List[ForecastData]:
     """Converts result from API to ForecastData List."""
+
+    current_conditions: ForecastData = _get_current_data(api_result)
+
+# pylint: disable=R0914, R0912, W0212, R0915
+def _get_current_data(api_result: dict) -> List[ForecastData]:
+    """Converts results from API to WeatherFlowForecast list"""
+
+    item = api_result["currentConditions"]
+
+    valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(tzinfo=UTC)
+    condition = item.get("conditions", None)
+    cloudcover = item.get("cloudcover", None)
+    icon = item.get("icon", None)
+    temperature = item.get("temp", None)
+    dew_point = item.get("dew", None)
+    apparent_temperature = item.get("feelslike", None)
+    precipitation = item.get("precip", None)
+    precipitation_probability = item.get("precipprob", None)
+    humidity = item.get("humidity", None)
+    solarradiation = item.get("solarradiation", None)
+    visibility = item.get("visibility", None)
+    pressure = item.get("pressure", None)
+    uv_index = item.get("uvindex", None)
+    wind_speed = item.get("windspeed", None)
+    wind_gust_speed = item.get("windgust", None)
+    wind_bearing = item.get("winddir", None)
+
+    current_condition = ForecastData(
+        valid_time,
+        apparent_temperature,
+        condition,
+        cloudcover,
+        dew_point,
+        humidity,
+        icon,
+        precipitation,
+        precipitation_probability,
+        pressure,
+        solarradiation,
+        temperature,
+        visibility,
+        uv_index,
+        wind_bearing,
+        wind_gust_speed,
+        wind_speed,
+    )
+
+    return current_condition
+

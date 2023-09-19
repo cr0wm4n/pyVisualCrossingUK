@@ -12,12 +12,16 @@ class ForecastData:
         datetime: datetime,
         apparent_temperature: float,
         condition: str,
+        cloud_cover: int,
         dew_point: float,
         humidity: int,
         icon: str,
         precipitation: float,
+        precipitation_probability: int,
         pressure: float,
+        solarradiation: float,
         temperature: float,
+        visibility: int,
         uv_index: int,
         wind_bearing: int,
         wind_gust_speed: float,
@@ -29,11 +33,15 @@ class ForecastData:
         self._datetime = datetime
         self._apparent_temperature = apparent_temperature
         self._condition = condition
+        self._cloud_cover = cloud_cover
         self._dew_point = dew_point
         self._humidity = humidity
         self._icon = icon
         self._precipitation = precipitation
+        self._precipitation_probability = precipitation_probability
         self._pressure = pressure
+        self._solarradiation = solarradiation
+        self._visibility = visibility
         self._temperature = temperature
         self._uv_index = uv_index
         self._wind_bearing = wind_bearing
@@ -59,6 +67,11 @@ class ForecastData:
         return self._condition
 
     @property
+    def cloud_cover(self) -> int:
+        """Cloud Coverage."""
+        return self._cloud_cover
+
+    @property
     def icon(self) -> str:
         """Weather condition symbol."""
         return self._icon
@@ -79,9 +92,25 @@ class ForecastData:
         return self._precipitation
 
     @property
+    def precipitation_probability (self) -> int:
+        """Posobility of Precipiation (%)."""
+        return self._precipitation_probability
+
+    @property
     def pressure(self) -> float:
         """Sea Level Pressure (MB)"""
         return self._pressure
+
+    @property
+    def solarradiation(self) -> float:
+        """Solar Radiation (w/m2)"""
+        return self._solarradiation
+
+    @property
+    def visibility(self) -> int:
+        """Visibility (km)"""
+        return self._visibility
+
 
     @property
     def wind_bearing(self) -> float:
@@ -298,39 +327,3 @@ class ForecastHourlyData:
     def datetime(self) -> datetime:
         """Valid time"""
         return self._datetime
-
-class WeatherFlowStationData:
-    """Class to hold station data."""
-        # pylint: disable=R0913, R0902, R0914
-    def __init__(
-            self,
-            station_name: str,
-            latitude: float,
-            longitude: float,
-            timezone: str,
-    ) -> None:
-        """Constructor."""
-        self._station_name = station_name
-        self._latitude = latitude
-        self._longitude = longitude
-        self._timezone = timezone
-
-    @property
-    def station_name(self) -> str:
-        """Name of the Station"""
-        return self._station_name
-
-    @property
-    def latitude(self) -> float:
-        """Latitude of station."""
-        return self._latitude
-
-    @property
-    def longitude(self) -> float:
-        """Longitude of station."""
-        return self._longitude
-
-    @property
-    def timezone(self) -> str:
-        """Timezone of station."""
-        return self._timezone

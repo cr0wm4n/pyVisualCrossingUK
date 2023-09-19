@@ -1,5 +1,7 @@
 """Python Wrapper for Visual Crossing Weather API."""
 from __future__ import annotations
+
+from pyVisualCrossing.api import VisualCrossing
 from pyVisualCrossing.data import ForecastData, ForecastDailyData, ForecastHourlyData
 
 __title__ = "pyVisualCrossing"
