@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+function BuildPackage {
+  echo "Building package..."
+  cd /workspaces/pypi_weatherflow_forecast
+  python pyweatherflow_forecast/setup.py sdist
+  echo "Package built!"
+}
+
+function UploadPackage {
+  echo "Building package..."
+  twine upload /workspaces/pypi_weatherflow_forecast/dist/*
+  echo "Package built!"
+}
+
