@@ -33,7 +33,7 @@ class VisualCrossingAPIBase:
     """
 
     @abc.abstractmethod
-    def fetch_data(self, api_key: str, latitude: float, longitude: float) -> Dict[str, Any]:
+    def fetch_data(self, api_key: str, latitude: float, longitude: float, days: int) -> Dict[str, Any]:
         """Override this"""
         raise NotImplementedError(
             "users must define fetch_data to use this base class"
@@ -41,7 +41,7 @@ class VisualCrossingAPIBase:
 
     @abc.abstractmethod
     async def async_fetch_data(
-        api_key: str, latitude: float, longitude: float
+        api_key: str, latitude: float, longitude: float, days: int
     ) -> Dict[str, Any]:
         """Override this"""
         raise NotImplementedError(
@@ -55,9 +55,9 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
         """Init the API with or without session"""
         self.session = None
 
-    def fetch_data(self, api_key: str, latitude: float, longitude: float) -> Dict[str, Any]:
+    def fetch_data(self, api_key: str, latitude: float, longitude: float, days: int) -> Dict[str, Any]:
         """Get data from API."""
-        api_url =f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}?unitGroup=metric&key={api_key}&contentType=json"
+        api_url =f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2"
         _LOGGER.debug("URL: %s", api_url)
 
         response = urlopen(api_url)
@@ -66,9 +66,9 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
 
         return json_data
 
-    async def async_fetch_data(self, api_key: str, latitude: float, longitude: float) -> Dict[str, Any]:
+    async def async_fetch_data(self, api_key: str, latitude: float, longitude: float, days: int) -> Dict[str, Any]:
         """Get data from API."""
-        api_url =f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}?unitGroup=metric&key={api_key}&contentType=json"
+        api_url =f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2"
 
         is_new_session = False
         if self.session is None:
@@ -99,14 +99,19 @@ class VisualCrossing:
         api_key: str,
         latitude: float,
         longitude: float,
+        days: int = 14,
         session: aiohttp.ClientSession = None,
         api: VisualCrossingAPIBase =VisualCrossingAPI(),
     ) -> None:
         self._api_key = api_key
         self._latitude = latitude
         self._longitude = longitude
+        self._days = days
         self._api = api
         self._json_data = None
+
+        if days > 14:
+            self._days = 14
 
         if session:
             self._api.session = session
@@ -115,7 +120,7 @@ class VisualCrossing:
         """Returns a list of weather data."""
 
         if self._json_data is None:
-            self._json_data = self._api.fetch_data(self._api_key, self._latitude, self._longitude)
+            self._json_data = self._api.fetch_data(self._api_key, self._latitude, self._longitude, self._days)
 
         return _fetch_data(self._json_data)
 
@@ -123,7 +128,7 @@ class VisualCrossing:
         """Returns a list of weather data."""
 
         if self._json_data is None:
-            self._json_data = await self._api.async_fetch_data(self._api_key, self._latitude, self._longitude)
+            self._json_data = await self._api.async_fetch_data(self._api_key, self._latitude, self._longitude, self._days)
 
         return _fetch_data(self._json_data)
 

@@ -24,7 +24,7 @@ latitude = os.getenv("LATITUDE")
 longitude = os.getenv("LONGITUDE")
 
 # Attach to API and fetch data
-vcapi = VisualCrossing(api_key, latitude, longitude)
+vcapi = VisualCrossing(api_key, latitude, longitude, 7)
 data: ForecastData = vcapi.fetch_data()
 
 print("***** CURRENT CONDITIONS *****")
@@ -35,4 +35,4 @@ print(" ")
 print("***** DAILY DATA *****")
 item: ForecastDailyData = None
 for item in data.forecast_daily:
-    print(item.datetime, item.temperature, item.temp_low)
+    print(item.datetime, item.temperature, item.temp_low, item.icon)
