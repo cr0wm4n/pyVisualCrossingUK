@@ -26,6 +26,7 @@ class ForecastData:
         wind_bearing: int,
         wind_gust_speed: float,
         wind_speed: float,
+        location_name: str,
         forecast_daily: ForecastDailyData = None,
         forecast_hourly: ForecastHourlyData = None,
     ) -> None:
@@ -47,6 +48,7 @@ class ForecastData:
         self._wind_bearing = wind_bearing
         self._wind_gust_speed = wind_gust_speed
         self._wind_speed = wind_speed
+        self._location_name = location_name
         self._forecast_daily = forecast_daily
         self._forecast_hourly = forecast_hourly
 
@@ -136,6 +138,11 @@ class ForecastData:
     def datetime(self) -> datetime:
         """Valid time"""
         return self._datetime
+
+    @property
+    def location_name(self) -> str:
+        """Location name."""
+        return self._location_name.capitalize()
 
     @property
     def forecast_daily(self) -> ForecastDailyData:

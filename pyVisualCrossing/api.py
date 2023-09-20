@@ -250,6 +250,7 @@ def _get_current_data(api_result: dict) -> List[ForecastData]:
     wind_speed = item.get("windspeed", None)
     wind_gust_speed = item.get("windgust", None)
     wind_bearing = item.get("winddir", None)
+    location = item.get("address", None)
 
     current_condition = ForecastData(
         valid_time,
@@ -269,6 +270,7 @@ def _get_current_data(api_result: dict) -> List[ForecastData]:
         wind_bearing,
         wind_gust_speed,
         wind_speed,
+        location,
     )
 
     return current_condition
