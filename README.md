@@ -1,8 +1,16 @@
 # Python Wrapper for Visual Crossing Weather API
 
-TODO:
-- Describe the usage of the API
-- Add all available items to the Data Structure
+This Python Wrapper retrives data from the [Visual Crossing](https://www.visualcrossing.com/) API. Visual Crossing has an extensive Weather API for both historical and forecast weather data, and they have a Free Tier API Key which enables up to 1000 calls per day.
+
+In order to get started you must create an Account with Visual Crossing and then create an API Key. You do this by accessing [this website](https://www.visualcrossing.com/weather-data-editions) and clicking on the **Free** plan. Then follow the instructions to create and account and store your key in a safe place.
+
+## Usage
+
+Install the module by using this command in a terminal: `pip install pyVisualCrossing`
+
+And then see `test_module.py` and `async_test_module.py` in the `samples` directory for usage examples, both standard and async.
+
+## Parameters
 
 For an in-depth description of the Visual Crossing API, go [here](https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/)
 
@@ -30,3 +38,8 @@ We use the Iconset *icons2*, which gives a more detailed description of the cond
 | partly-cloudy-night   | Cloud cover is greater than 20% cover during night time. |
 | clear-day             | Cloud cover is less than 20% cover during day time |
 | clear-night           | Cloud cover is less than 20% cover during night time |
+
+## TODO
+
+- Describe the usage of the API
+- Add all available items to the Data Structure
