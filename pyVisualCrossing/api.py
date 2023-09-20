@@ -22,6 +22,7 @@ UTC = datetime.timezone.utc
 
 _LOGGER = logging.getLogger(__name__)
 
+
 class VisualCrossingException(Exception):
     """Exception thrown if failing to access API."""
 
@@ -33,20 +34,19 @@ class VisualCrossingAPIBase:
     """
 
     @abc.abstractmethod
-    def fetch_data(self, api_key: str, latitude: float, longitude: float, days: int, language: str) -> Dict[str, Any]:
+    def fetch_data(
+        self, api_key: str, latitude: float, longitude: float, days: int, language: str
+    ) -> Dict[str, Any]:
         """Override this"""
-        raise NotImplementedError(
-            "users must define fetch_data to use this base class"
-        )
+        raise NotImplementedError("users must define fetch_data to use this base class")
 
     @abc.abstractmethod
     async def async_fetch_data(
         api_key: str, latitude: float, longitude: float, days: int, language: str
     ) -> Dict[str, Any]:
         """Override this"""
-        raise NotImplementedError(
-            "users must define fetch_data to use this base class"
-        )
+        raise NotImplementedError("users must define fetch_data to use this base class")
+
 
 class VisualCrossingAPI(VisualCrossingAPIBase):
     """Default implementation for WeatherFlow api"""
@@ -55,9 +55,11 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
         """Init the API with or without session"""
         self.session = None
 
-    def fetch_data(self, api_key: str, latitude: float, longitude: float, days: int, language: str) -> Dict[str, Any]:
+    def fetch_data(
+        self, api_key: str, latitude: float, longitude: float, days: int, language: str
+    ) -> Dict[str, Any]:
         """Get data from API."""
-        api_url =f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
+        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
         _LOGGER.debug("URL: %s", api_url)
 
         response = urlopen(api_url)
@@ -66,9 +68,11 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
 
         return json_data
 
-    async def async_fetch_data(self, api_key: str, latitude: float, longitude: float, days: int, language: str) -> Dict[str, Any]:
+    async def async_fetch_data(
+        self, api_key: str, latitude: float, longitude: float, days: int, language: str
+    ) -> Dict[str, Any]:
         """Get data from API."""
-        api_url =f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
+        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
 
         is_new_session = False
         if self.session is None:
@@ -87,6 +91,7 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
                 await self.session.close()
             return json.loads(data)
 
+
 class VisualCrossing:
     """
     Class that uses the weather API from Visual Crossing
@@ -102,7 +107,7 @@ class VisualCrossing:
         days: int = 14,
         language: str = "en",
         session: aiohttp.ClientSession = None,
-        api: VisualCrossingAPIBase =VisualCrossingAPI(),
+        api: VisualCrossingAPIBase = VisualCrossingAPI(),
     ) -> None:
         self._api_key = api_key
         self._latitude = latitude
@@ -125,7 +130,13 @@ class VisualCrossing:
         """Returns a list of weather data."""
 
         if self._json_data is None:
-            self._json_data = self._api.fetch_data(self._api_key, self._latitude, self._longitude, self._days, self._language)
+            self._json_data = self._api.fetch_data(
+                self._api_key,
+                self._latitude,
+                self._longitude,
+                self._days,
+                self._language,
+            )
 
         return _fetch_data(self._json_data)
 
@@ -133,9 +144,16 @@ class VisualCrossing:
         """Returns a list of weather data."""
 
         if self._json_data is None:
-            self._json_data = await self._api.async_fetch_data(self._api_key, self._latitude, self._longitude, self._days, self._language)
+            self._json_data = await self._api.async_fetch_data(
+                self._api_key,
+                self._latitude,
+                self._longitude,
+                self._days,
+                self._language,
+            )
 
         return _fetch_data(self._json_data)
+
 
 def _fetch_data(api_result: dict) -> List[ForecastData]:
     """Converts result from API to ForecastData List."""
@@ -148,7 +166,9 @@ def _fetch_data(api_result: dict) -> List[ForecastData]:
 
     # Loop Through Records and add Daily and Hourly Forecast Data
     for item in api_result["days"]:
-        valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(tzinfo=UTC)
+        valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(
+            tzinfo=UTC
+        )
         condition = item.get("conditions", None)
         cloudcover = item.get("cloudcover", None)
         icon = item.get("icon", None)
@@ -187,7 +207,9 @@ def _fetch_data(api_result: dict) -> List[ForecastData]:
 
         # Add Hourly data for this day
         for row in item["hours"]:
-            valid_time = datetime.datetime.utcfromtimestamp(row["datetimeEpoch"]).replace(tzinfo=UTC)
+            valid_time = datetime.datetime.utcfromtimestamp(
+                row["datetimeEpoch"]
+            ).replace(tzinfo=UTC)
             condition = row.get("conditions", None)
             cloudcover = row.get("cloudcover", None)
             icon = row.get("icon", None)
@@ -227,13 +249,16 @@ def _fetch_data(api_result: dict) -> List[ForecastData]:
 
     return weather_data
 
+
 # pylint: disable=R0914, R0912, W0212, R0915
 def _get_current_data(api_result: dict) -> List[ForecastData]:
     """Converts results from API to WeatherFlowForecast list"""
 
     item = api_result["currentConditions"]
 
-    valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(tzinfo=UTC)
+    valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(
+        tzinfo=UTC
+    )
     condition = item.get("conditions", None)
     cloudcover = item.get("cloudcover", None)
     icon = item.get("icon", None)
@@ -250,7 +275,7 @@ def _get_current_data(api_result: dict) -> List[ForecastData]:
     wind_speed = item.get("windspeed", None)
     wind_gust_speed = item.get("windgust", None)
     wind_bearing = item.get("winddir", None)
-    location = item.get("address", None)
+    location = api_result.get("address", None)
 
     current_condition = ForecastData(
         valid_time,
@@ -274,4 +299,3 @@ def _get_current_data(api_result: dict) -> List[ForecastData]:
     )
 
     return current_condition
-

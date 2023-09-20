@@ -12,7 +12,12 @@ from dotenv import load_dotenv
 import os
 import logging
 
-from pyVisualCrossing import VisualCrossing, ForecastData, ForecastDailyData, ForecastHourlyData
+from pyVisualCrossing import (
+    VisualCrossing,
+    ForecastData,
+    ForecastDailyData,
+    ForecastHourlyData,
+)
 
 _LOGGER = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -29,16 +34,16 @@ data: ForecastData = vcapi.fetch_data()
 
 print("***** CURRENT CONDITIONS *****")
 print("TEMPERATURE: ", data.temperature, " WIND GUST SPEED: ", data.wind_gust_speed)
-print(" ")
+print("LOCATION: ", data.location_name)
 print(" ")
 print(" ")
 
-print("***** DAILY DATA *****")
-item: ForecastDailyData = None
-for item in data.forecast_daily:
-    print(item.datetime, item.temperature, item.temp_low, item.icon, item.condition)
+# print("***** DAILY DATA *****")
+# item: ForecastDailyData = None
+# for item in data.forecast_daily:
+#     print(item.datetime, item.temperature, item.temp_low, item.icon, item.condition)
 
-print("***** HOURLY DATA *****")
-item_hour: ForecastHourlyData = None
-for item_hour in data.forecast_hourly:
-    print(item_hour.datetime, item_hour.temperature, item_hour.apparent_temperature, item_hour.icon, item_hour.condition)
+# print("***** HOURLY DATA *****")
+# item_hour: ForecastHourlyData = None
+# for item_hour in data.forecast_hourly:
+#     print(item_hour.datetime, item_hour.temperature, item_hour.apparent_temperature, item_hour.icon, item_hour.condition)

@@ -4,9 +4,11 @@ from __future__ import annotations
 from datetime import datetime
 from typing import List
 
+
 class ForecastData:
     """Class to hold forecast data."""
-        # pylint: disable=R0913, R0902, R0914
+
+    # pylint: disable=R0913, R0902, R0914
     def __init__(
         self,
         datetime: datetime,
@@ -52,7 +54,6 @@ class ForecastData:
         self._forecast_daily = forecast_daily
         self._forecast_hourly = forecast_hourly
 
-
     @property
     def temperature(self) -> float:
         """Air temperature (Celcius)"""
@@ -94,7 +95,7 @@ class ForecastData:
         return self._precipitation
 
     @property
-    def precipitation_probability (self) -> int:
+    def precipitation_probability(self) -> int:
         """Posobility of Precipiation (%)."""
         return self._precipitation_probability
 
@@ -112,7 +113,6 @@ class ForecastData:
     def visibility(self) -> int:
         """Visibility (km)"""
         return self._visibility
-
 
     @property
     def wind_bearing(self) -> float:
@@ -142,7 +142,7 @@ class ForecastData:
     @property
     def location_name(self) -> str:
         """Location name."""
-        return self._location_name.capitalize()
+        return str(self._location_name).capitalize()
 
     @property
     def forecast_daily(self) -> ForecastDailyData:
@@ -164,9 +164,11 @@ class ForecastData:
         """Sets a new Value for forecast hourly"""
         self._forecast_hourly = new_forecast
 
+
 class ForecastDailyData:
     """Class to hold daily forecast data."""
-        # pylint: disable=R0913, R0902, R0914
+
+    # pylint: disable=R0913, R0902, R0914
     def __init__(
         self,
         datetime: datetime,
@@ -250,7 +252,7 @@ class ForecastDailyData:
         return self._icon
 
     @property
-    def precipitation_probability (self) -> int:
+    def precipitation_probability(self) -> int:
         """Posobility of Precipiation (%)."""
         return self._precipitation_probability
 
@@ -287,7 +289,8 @@ class ForecastDailyData:
 
 class ForecastHourlyData:
     """Class to hold hourly forecast data."""
-        # pylint: disable=R0913, R0902, R0914
+
+    # pylint: disable=R0913, R0902, R0914
     def __init__(
         self,
         datetime: datetime,
@@ -364,7 +367,7 @@ class ForecastHourlyData:
         return self._precipitation
 
     @property
-    def precipitation_probability (self) -> int:
+    def precipitation_probability(self) -> int:
         """Posobility of Precipiation (%)."""
         return self._precipitation_probability
 
