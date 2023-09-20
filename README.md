@@ -12,6 +12,28 @@ And then see `test_module.py` and `async_test_module.py` in the `samples` direct
 
 ## Parameters
 
+```python
+# Initialise the module
+vcapi = VisualCrossing(
+    api_key,
+    latitude,
+    longitude,
+    days=7,
+    language="da"
+)
+````
+
+| Parameter | Required | Default | Description |
+| --------- | -------- | ------- | ----------- |
+| `api_key` | Yes      | `None`  | This is the API Key you signed up for from Visual Crossing. See above for instructions |
+| `latitude` | Yes     | `None`  | Latitude for the location position |
+| `longitude` | Yes     | `None`  | Longitude for the location position |
+| `days` | No     | `14`  | Numbers of days to retrieve forecast for. 14 days means today plus the next 14 days. On the Free plan, this is the maximum number of days |
+| `language` | No     | `en`  | The language in which text strings should be returned. Se below for list of valid languages. |
+| `session` | No     | `None`  | A session variable. Only used when using the async function. |
+
+
+
 For an in-depth description of the Visual Crossing API, go [here](https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/)
 
 ## Languages
@@ -41,5 +63,6 @@ We use the Iconset *icons2*, which gives a more detailed description of the cond
 
 ## TODO
 
-- Describe the usage of the API
 - Add all available items to the Data Structure
+- Create `async_test_module.py` in the samples directory
+- More detailed error handling.
