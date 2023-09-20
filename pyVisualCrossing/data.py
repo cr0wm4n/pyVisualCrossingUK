@@ -165,23 +165,37 @@ class ForecastDailyData:
         datetime: datetime,
         temperature: float,
         temp_low: float,
+        apparent_temperature: float,
         condition: str,
         icon: str,
+        cloud_cover: int,
+        dew_point: float,
+        humidity: int,
         precipitation_probability: int,
         precipitation: float,
+        pressure: float,
         wind_bearing: int,
         wind_speed: float,
+        wind_gust: float,
+        uv_index: int,
     ) -> None:
         """Constructor"""
         self._datetime = datetime
         self._temperature = temperature
         self._temp_low = temp_low
+        self._apparent_temperature = apparent_temperature
         self._condition = condition
+        self._cloud_cover = cloud_cover
+        self._dew_point = dew_point
+        self._humidity = humidity
         self._icon = icon
         self._precipitation_probability = precipitation_probability
         self._precipitation = precipitation
+        self._pressure = pressure
         self._wind_bearing = wind_bearing
+        self._wind_gust = wind_gust
         self._wind_speed = wind_speed
+        self._uv_index = uv_index
 
     @property
     def datetime(self) -> datetime:
@@ -199,9 +213,29 @@ class ForecastDailyData:
         return self._temp_low
 
     @property
+    def apparent_temperature(self) -> float:
+        """Feels like temperature (Celcius)."""
+        return self._apparent_temperature
+
+    @property
     def condition(self) -> str:
         """Weather condition text."""
         return self._condition
+
+    @property
+    def cloud_cover(self) -> int:
+        """Cloud Coverage."""
+        return self._cloud_cover
+
+    @property
+    def dew_point(self) -> float:
+        """Dew Point (Celcius)"""
+        return self._dew_point
+
+    @property
+    def humidity(self) -> int:
+        """Humidity (%)."""
+        return self._humidity
 
     @property
     def icon(self) -> str:
@@ -219,9 +253,24 @@ class ForecastDailyData:
         return self._precipitation
 
     @property
+    def pressure(self) -> float:
+        """Sea Level Pressure (MB)"""
+        return self._pressure
+
+    @property
+    def uv_index(self) -> float:
+        """UV Index"""
+        return self._uv_index
+
+    @property
     def wind_bearing(self) -> float:
         """Wind bearing (degrees)"""
         return self._wind_bearing
+
+    @property
+    def wind_gust(self) -> float:
+        """Wind Gust speed (m/s)"""
+        return self._wind_gust
 
     @property
     def wind_speed(self) -> float:
@@ -238,7 +287,9 @@ class ForecastHourlyData:
         temperature: float,
         apparent_temperature: float,
         condition: str,
+        cloud_cover: int,
         icon: str,
+        dew_point: float,
         humidity: int,
         precipitation: float,
         precipitation_probability: int,
@@ -253,7 +304,9 @@ class ForecastHourlyData:
         self._temperature = temperature
         self._apparent_temperature = apparent_temperature
         self._condition = condition
+        self._cloud_cover = cloud_cover
         self._icon = icon
+        self._dew_point = dew_point
         self._humidity = humidity
         self._precipitation = precipitation
         self._precipitation_probability = precipitation_probability
@@ -272,6 +325,16 @@ class ForecastHourlyData:
     def condition(self) -> str:
         """Weather condition text."""
         return self._condition
+
+    @property
+    def cloud_cover(self) -> int:
+        """Cloud Coverage."""
+        return self._cloud_cover
+
+    @property
+    def dew_point(self) -> float:
+        """Dew Point (Celcius)"""
+        return self._dew_point
 
     @property
     def icon(self) -> str:
