@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 import os
 import logging
 
-from pyVisualCrossing import VisualCrossing, ForecastData, ForecastDailyData
+from pyVisualCrossing import VisualCrossing, ForecastData, ForecastDailyData, ForecastHourlyData
 
 _LOGGER = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -24,7 +24,7 @@ latitude = os.getenv("LATITUDE")
 longitude = os.getenv("LONGITUDE")
 
 # Attach to API and fetch data
-vcapi = VisualCrossing(api_key, latitude, longitude, 7)
+vcapi = VisualCrossing(api_key, latitude, longitude, days=7)
 data: ForecastData = vcapi.fetch_data()
 
 print("***** CURRENT CONDITIONS *****")
@@ -32,7 +32,13 @@ print("TEMPERATURE: ", data.temperature, " WIND GUST SPEED: ", data.wind_gust_sp
 print(" ")
 print(" ")
 print(" ")
+
 print("***** DAILY DATA *****")
 item: ForecastDailyData = None
 for item in data.forecast_daily:
-    print(item.datetime, item.temperature, item.temp_low, item.icon)
+    print(item.datetime, item.temperature, item.temp_low, item.icon, item.condition)
+
+print("***** HOURLY DATA *****")
+item_hour: ForecastHourlyData = None
+for item_hour in data.forecast_hourly:
+    print(item_hour.datetime, item_hour.temperature, item_hour.apparent_temperature, item_hour.icon, item_hour.condition)
