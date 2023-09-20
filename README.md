@@ -1,6 +1,8 @@
 # pyVisualCrossing
 Python Wrapper for Visual Crossing Weather API
 
+For an in-depth description of the Visual Crossing API, go [here](https://www.visualcrossing.com/resources/documentation/weather-api/timeline-weather-api/)
+
 ## Icons
 We use the Iconset *icons2*, which gives a more detailed description of the conditions.
 
