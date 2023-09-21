@@ -12,6 +12,7 @@ import logging
 
 from typing import List, Any, Dict
 from urllib.request import urlopen
+import urllib.error
 
 import aiohttp
 
@@ -62,11 +63,20 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
         api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
         _LOGGER.debug("URL: %s", api_url)
 
-        response = urlopen(api_url)
-        data = response.read().decode("utf-8")
-        json_data = json.loads(data)
+        try:
+            response = urlopen(api_url)
+            data = response.read().decode("utf-8")
+            json_data = json.loads(data)
 
-        return json_data
+            return json_data
+        except Exception as e:
+            if "401" in str(e):
+                raise VisualCrossingException("Visual Crossing returned error 401, which usually means invalid API Key")
+            else:
+                raise VisualCrossingException(f"Failed to access Visual Crossing API with status code {e}")
+            return None
+
+        return None
 
     async def async_fetch_data(
         self, api_key: str, latitude: float, longitude: float, days: int, language: str
@@ -157,6 +167,10 @@ class VisualCrossing:
 
 def _fetch_data(api_result: dict) -> List[ForecastData]:
     """Converts result from API to ForecastData List."""
+
+    # Return nothing af the Request for data fails
+    if api_result is None:
+        return None
 
     # Add Current Condition Data
     weather_data: ForecastData = _get_current_data(api_result)
