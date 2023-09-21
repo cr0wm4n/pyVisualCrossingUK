@@ -27,7 +27,6 @@ _LOGGER = logging.getLogger(__name__)
 class VisualCrossingException(Exception):
     """Exception thrown if failing to access API."""
 
-
 class VisualCrossingAPIBase:
     """
     Baseclass to use as dependency injection pattern for easier
@@ -74,7 +73,6 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
                 raise VisualCrossingException("Visual Crossing returned error 401, which usually means invalid API Key")
             else:
                 raise VisualCrossingException(f"Failed to access Visual Crossing API with status code {e}")
-            return None
 
         return None
 
