@@ -207,42 +207,44 @@ def _fetch_data(api_result: dict) -> List[ForecastData]:
 
         # Add Hourly data for this day
         for row in item["hours"]:
+            now = datetime.datetime.now().replace(tzinfo=UTC)
             valid_time = datetime.datetime.utcfromtimestamp(
                 row["datetimeEpoch"]
             ).replace(tzinfo=UTC)
-            condition = row.get("conditions", None)
-            cloudcover = row.get("cloudcover", None)
-            icon = row.get("icon", None)
-            temperature = row.get("temp", None)
-            dew_point = row.get("dew", None)
-            apparent_temperature = row.get("feelslike", None)
-            precipitation = row.get("precip", None)
-            precipitation_probability = row.get("precipprob", None)
-            humidity = row.get("humidity", None)
-            pressure = row.get("pressure", None)
-            uv_index = row.get("uvindex", None)
-            wind_speed = row.get("windspeed", None)
-            wind_gust_speed = row.get("windgust", None)
-            wind_bearing = row.get("winddir", None)
+            if valid_time > now:
+                condition = row.get("conditions", None)
+                cloudcover = row.get("cloudcover", None)
+                icon = row.get("icon", None)
+                temperature = row.get("temp", None)
+                dew_point = row.get("dew", None)
+                apparent_temperature = row.get("feelslike", None)
+                precipitation = row.get("precip", None)
+                precipitation_probability = row.get("precipprob", None)
+                humidity = row.get("humidity", None)
+                pressure = row.get("pressure", None)
+                uv_index = row.get("uvindex", None)
+                wind_speed = row.get("windspeed", None)
+                wind_gust_speed = row.get("windgust", None)
+                wind_bearing = row.get("winddir", None)
 
-            hour_data = ForecastHourlyData(
-                valid_time,
-                temperature,
-                apparent_temperature,
-                condition,
-                cloudcover,
-                icon,
-                dew_point,
-                humidity,
-                precipitation,
-                precipitation_probability,
-                pressure,
-                wind_bearing,
-                wind_gust_speed,
-                wind_speed,
-                uv_index,
-            )
-            forecast_hourly.append(hour_data)
+                hour_data = ForecastHourlyData(
+                    valid_time,
+                    temperature,
+                    apparent_temperature,
+                    condition,
+                    cloudcover,
+                    icon,
+                    dew_point,
+                    humidity,
+                    precipitation,
+                    precipitation_probability,
+                    pressure,
+                    wind_bearing,
+                    wind_gust_speed,
+                    wind_speed,
+                    uv_index,
+                )
+                forecast_hourly.append(hour_data)
 
     weather_data.forecast_daily = forecast_daily
     weather_data.forecast_hourly = forecast_hourly
