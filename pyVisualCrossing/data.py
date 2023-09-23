@@ -145,6 +145,11 @@ class ForecastData:
         return str(self._location_name).capitalize()
 
     @property
+    def update_time(self) -> datetime:
+        """Last updated."""
+        return datetime.now()
+
+    @property
     def forecast_daily(self) -> ForecastDailyData:
         """Forecast List"""
         return self._forecast_daily
