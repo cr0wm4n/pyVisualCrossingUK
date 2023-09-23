@@ -27,6 +27,7 @@ _LOGGER = logging.getLogger(__name__)
 class VisualCrossingException(Exception):
     """Exception thrown if failing to access API."""
 
+
 class VisualCrossingAPIBase:
     """
     Baseclass to use as dependency injection pattern for easier
@@ -70,9 +71,13 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
             return json_data
         except Exception as e:
             if "401" in str(e):
-                raise VisualCrossingException("Visual Crossing returned error 401, which usually means invalid API Key")
+                raise VisualCrossingException(
+                    "Visual Crossing returned error 401, which usually means invalid API Key"
+                )
             else:
-                raise VisualCrossingException(f"Failed to access Visual Crossing API with status code {e}")
+                raise VisualCrossingException(
+                    f"Failed to access Visual Crossing API with status code {e}"
+                )
 
         return None
 
@@ -137,28 +142,26 @@ class VisualCrossing:
     def fetch_data(self) -> List[ForecastData]:
         """Returns a list of weather data."""
 
-        if self._json_data is None:
-            self._json_data = self._api.fetch_data(
-                self._api_key,
-                self._latitude,
-                self._longitude,
-                self._days,
-                self._language,
-            )
+        self._json_data = self._api.fetch_data(
+            self._api_key,
+            self._latitude,
+            self._longitude,
+            self._days,
+            self._language,
+        )
 
         return _fetch_data(self._json_data)
 
     async def async_fetch_data(self) -> List[ForecastData]:
         """Returns a list of weather data."""
 
-        if self._json_data is None:
-            self._json_data = await self._api.async_fetch_data(
-                self._api_key,
-                self._latitude,
-                self._longitude,
-                self._days,
-                self._language,
-            )
+        self._json_data = await self._api.async_fetch_data(
+            self._api_key,
+            self._latitude,
+            self._longitude,
+            self._days,
+            self._language,
+        )
 
         return _fetch_data(self._json_data)
 
