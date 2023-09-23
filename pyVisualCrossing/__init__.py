@@ -11,6 +11,6 @@ from pyVisualCrossing.api import (
 from pyVisualCrossing.data import ForecastData, ForecastDailyData, ForecastHourlyData
 
 __title__ = "pyVisualCrossing"
-__version__ = "0.1.7"
+__version__ = "0.1.8"
 __author__ = "briis"
 __license__ = "MIT"
