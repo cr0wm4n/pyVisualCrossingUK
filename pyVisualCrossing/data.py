@@ -147,7 +147,7 @@ class ForecastData:
     @property
     def update_time(self) -> datetime:
         """Last updated."""
-        return datetime.now()
+        return datetime.now().isoformat()
 
     @property
     def forecast_daily(self) -> ForecastDailyData:
