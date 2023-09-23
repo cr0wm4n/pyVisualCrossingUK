@@ -14,6 +14,7 @@ import logging
 
 from pyVisualCrossing import (
     VisualCrossing,
+    VisualCrossingUnauthorized,
     ForecastData,
     ForecastDailyData,
     ForecastHourlyData,
@@ -27,10 +28,14 @@ load_dotenv()
 api_key = os.getenv("API_KEY")
 latitude = os.getenv("LATITUDE")
 longitude = os.getenv("LONGITUDE")
+data = None
 
 # Attach to API and fetch data
 vcapi = VisualCrossing(api_key, latitude, longitude, days=7)
-data: ForecastData = vcapi.fetch_data()
+try:
+    data: ForecastData = vcapi.fetch_data()
+except VisualCrossingUnauthorized as erru:
+    print(erru)
 
 if data is not None:
     print("***** CURRENT CONDITIONS *****")

@@ -11,7 +11,7 @@ import json
 import logging
 
 from typing import List, Any, Dict
-from urllib.request import urlopen
+import urllib.request
 
 import aiohttp
 
@@ -25,6 +25,22 @@ _LOGGER = logging.getLogger(__name__)
 
 class VisualCrossingException(Exception):
     """Exception thrown if failing to access API."""
+
+
+class VisualCrossingBadRequest(Exception):
+    """Request is invalid."""
+
+
+class VisualCrossingUnauthorized(Exception):
+    """Unauthorized API Key."""
+
+
+class VisualCrossingTooManyRequests(Exception):
+    """Too many daily request for the current plan."""
+
+
+class VisualCrossingInternalServerError(Exception):
+    """Visual Crossing servers encounter an unexpected error."""
 
 
 class VisualCrossingAPIBase:
@@ -63,19 +79,27 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
         _LOGGER.debug("URL: %s", api_url)
 
         try:
-            response = urlopen(api_url)
+            response = urllib.request.urlopen(api_url)
             data = response.read().decode("utf-8")
             json_data = json.loads(data)
 
             return json_data
-        except Exception as e:
-            if "401" in str(e):
-                raise VisualCrossingException(
-                    "Visual Crossing returned error 401, which usually means invalid API Key"
+        except urllib.error.HTTPError as errh:
+            if errh.code == 400:
+                raise VisualCrossingBadRequest(
+                    "400 BAD_REQUEST Requests is invalid in some way (invalid dates, bad location parameter etc)."
                 )
-            else:
-                raise VisualCrossingException(
-                    f"Failed to access Visual Crossing API with status code {e}"
+            elif errh.code == 401:
+                raise VisualCrossingUnauthorized(
+                    "401 UNAUTHORIZED The API key is incorrect or your account status is inactive or disabled."
+                )
+            elif errh.code == 429:
+                raise VisualCrossingTooManyRequests(
+                    "429 TOO_MANY_REQUESTS Too many daily request for the current plan."
+                )
+            elif errh.code == 500:
+                raise VisualCrossingInternalServerError(
+                    "500 INTERNAL_SERVER_ERROR Visual Crossing servers encounter an unexpected error."
                 )
 
         return None
@@ -95,9 +119,23 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
             if response.status != 200:
                 if is_new_session:
                     await self.session.close()
-                raise VisualCrossingException(
-                    f"Failed to access Visual Crossing API with status code {response.status}"
-                )
+                if response.status == 400:
+                    raise VisualCrossingBadRequest(
+                        "400 BAD_REQUEST Requests is invalid in some way (invalid dates, bad location parameter etc)."
+                    )
+                if response.status == 401:
+                    raise VisualCrossingUnauthorized(
+                        "401 UNAUTHORIZED The API key is incorrect or your account status is inactive or disabled."
+                    )
+                if response.status == 429:
+                    raise VisualCrossingTooManyRequests(
+                        "429 TOO_MANY_REQUESTS Too many daily request for the current plan."
+                    )
+                if response.status == 500:
+                    raise VisualCrossingInternalServerError(
+                        "500 INTERNAL_SERVER_ERROR Visual Crossing servers encounter an unexpected error."
+                    )
+
             data = await response.text()
             if is_new_session:
                 await self.session.close()
