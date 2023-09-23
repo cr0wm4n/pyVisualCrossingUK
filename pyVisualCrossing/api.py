@@ -12,7 +12,6 @@ import logging
 
 from typing import List, Any, Dict
 from urllib.request import urlopen
-import urllib.error
 
 import aiohttp
 
