@@ -65,4 +65,3 @@ We use the Iconset *icons2*, which gives a more detailed description of the cond
 
 - Add all available items to the Data Structure
 - Create `async_test_module.py` in the samples directory
-- More detailed error handling.
