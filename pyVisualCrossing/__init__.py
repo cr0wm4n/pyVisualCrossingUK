@@ -8,9 +8,10 @@ from pyVisualCrossing.api import (
     VisualCrossingTooManyRequests,
     VisualCrossingUnauthorized,
 )
+from pyVisualCrossing.const import SUPPORTED_LANGUAGES
 from pyVisualCrossing.data import ForecastData, ForecastDailyData, ForecastHourlyData
 
 __title__ = "pyVisualCrossing"
-__version__ = "0.1.8"
+__version__ = "0.1.9"
 __author__ = "briis"
 __license__ = "MIT"
