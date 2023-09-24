@@ -1,10 +1,9 @@
-"""
-This module is only used to run some realtime data tests
-while developing the module.
+"""This module is only used to run some realtime data tests while developing the module.
+
 Create a .env file and add:
 API_KEY: Your API key from Visual Crossing
 LATITUDE: The latitude you want to get data for
-LONGITUDE: The longitude you want to get data for
+LONGITUDE: The longitude you want to get data for.
 """
 from __future__ import annotations
 

@@ -1,8 +1,7 @@
-"""Holds the Data Classes for Visual Crossing Wrapper"""
+"""Holds the Data Classes for Visual Crossing Wrapper."""
 
 from __future__ import annotations
 from datetime import datetime
-from typing import List
 
 
 class ForecastData:
@@ -33,7 +32,7 @@ class ForecastData:
         forecast_daily: ForecastDailyData = None,
         forecast_hourly: ForecastHourlyData = None,
     ) -> None:
-        """Constructor"""
+        """Dataset constructor."""
         self._datetime = datetime
         self._apparent_temperature = apparent_temperature
         self._condition = condition
@@ -58,12 +57,12 @@ class ForecastData:
 
     @property
     def temperature(self) -> float:
-        """Air temperature (Celcius)"""
+        """Air temperature (Celcius)."""
         return self._temperature
 
     @property
     def dew_point(self) -> float:
-        """Dew Point (Celcius)"""
+        """Dew Point (Celcius)."""
         return self._dew_point
 
     @property
@@ -103,42 +102,42 @@ class ForecastData:
 
     @property
     def pressure(self) -> float:
-        """Sea Level Pressure (MB)"""
+        """Sea Level Pressure (MB)."""
         return self._pressure
 
     @property
     def solarradiation(self) -> float:
-        """Solar Radiation (w/m2)"""
+        """Solar Radiation (w/m2)."""
         return self._solarradiation
 
     @property
     def visibility(self) -> int:
-        """Visibility (km)"""
+        """Visibility (km)."""
         return self._visibility
 
     @property
     def wind_bearing(self) -> float:
-        """Wind bearing (degrees)"""
+        """Wind bearing (degrees)."""
         return self._wind_bearing
 
     @property
     def wind_gust_speed(self) -> float:
-        """Wind gust (m/s)"""
+        """Wind gust (m/s)."""
         return self._wind_gust_speed
 
     @property
     def wind_speed(self) -> float:
-        """Wind speed (m/s)"""
+        """Wind speed (m/s)."""
         return self._wind_speed
 
     @property
     def uv_index(self) -> float:
-        """UV Index"""
+        """UV Index."""
         return self._uv_index
 
     @property
     def datetime(self) -> datetime:
-        """Valid time"""
+        """Valid time."""
         return self._datetime
 
     @property
@@ -158,22 +157,22 @@ class ForecastData:
 
     @property
     def forecast_daily(self) -> ForecastDailyData:
-        """Forecast List"""
+        """Forecast List."""
         return self._forecast_daily
 
     @forecast_daily.setter
     def forecast_daily(self, new_forecast):
-        """Sets a new Value for forecast daily"""
+        """Forecast daily new value."""
         self._forecast_daily = new_forecast
 
     @property
     def forecast_hourly(self) -> ForecastHourlyData:
-        """Forecast List"""
+        """Forecast List."""
         return self._forecast_hourly
 
     @forecast_hourly.setter
     def forecast_hourly(self, new_forecast):
-        """Sets a new Value for forecast hourly"""
+        """Forecast hourly new value."""
         self._forecast_hourly = new_forecast
 
 
@@ -200,7 +199,7 @@ class ForecastDailyData:
         wind_gust: float,
         uv_index: int,
     ) -> None:
-        """Constructor"""
+        """Dataset constructor."""
         self._datetime = datetime
         self._temperature = temperature
         self._temp_low = temp_low
@@ -220,17 +219,17 @@ class ForecastDailyData:
 
     @property
     def datetime(self) -> datetime:
-        """Valid time"""
+        """Valid time."""
         return self._datetime
 
     @property
     def temperature(self) -> float:
-        """Air temperature (Celcius)"""
+        """Air temperature (Celcius)."""
         return self._temperature
 
     @property
     def temp_low(self) -> float:
-        """Air temperature min during the day (Celcius)"""
+        """Air temperature min during the day (Celcius)."""
         return self._temp_low
 
     @property
@@ -250,7 +249,7 @@ class ForecastDailyData:
 
     @property
     def dew_point(self) -> float:
-        """Dew Point (Celcius)"""
+        """Dew Point (Celcius)."""
         return self._dew_point
 
     @property
@@ -275,27 +274,27 @@ class ForecastDailyData:
 
     @property
     def pressure(self) -> float:
-        """Sea Level Pressure (MB)"""
+        """Sea Level Pressure (MB)."""
         return self._pressure
 
     @property
     def uv_index(self) -> float:
-        """UV Index"""
+        """UV Index."""
         return self._uv_index
 
     @property
     def wind_bearing(self) -> float:
-        """Wind bearing (degrees)"""
+        """Wind bearing (degrees)."""
         return self._wind_bearing
 
     @property
     def wind_gust(self) -> float:
-        """Wind Gust speed (m/s)"""
+        """Wind Gust speed (m/s)."""
         return self._wind_gust
 
     @property
     def wind_speed(self) -> float:
-        """Wind speed (m/s)"""
+        """Wind speed (m/s)."""
         return self._wind_speed
 
 
@@ -321,7 +320,7 @@ class ForecastHourlyData:
         wind_speed: int,
         uv_index: float,
     ) -> None:
-        """Constructor"""
+        """Dataset constructor."""
         self._datetime = datetime
         self._temperature = temperature
         self._apparent_temperature = apparent_temperature
@@ -340,7 +339,7 @@ class ForecastHourlyData:
 
     @property
     def temperature(self) -> float:
-        """Air temperature (Celcius)"""
+        """Air temperature (Celcius)."""
         return self._temperature
 
     @property
@@ -355,7 +354,7 @@ class ForecastHourlyData:
 
     @property
     def dew_point(self) -> float:
-        """Dew Point (Celcius)"""
+        """Dew Point (Celcius)."""
         return self._dew_point
 
     @property
@@ -385,30 +384,30 @@ class ForecastHourlyData:
 
     @property
     def pressure(self) -> float:
-        """Sea Level Pressure (MB)"""
+        """Sea Level Pressure (MB)."""
         return self._pressure
 
     @property
     def wind_bearing(self) -> float:
-        """Wind bearing (degrees)"""
+        """Wind bearing (degrees)."""
         return self._wind_bearing
 
     @property
     def wind_gust_speed(self) -> float:
-        """Wind gust (m/s)"""
+        """Wind gust (m/s)."""
         return self._wind_gust_speed
 
     @property
     def wind_speed(self) -> float:
-        """Wind speed (m/s)"""
+        """Wind speed (m/s)."""
         return self._wind_speed
 
     @property
     def uv_index(self) -> float:
-        """UV Index"""
+        """UV Index."""
         return self._uv_index
 
     @property
     def datetime(self) -> datetime:
-        """Valid time"""
+        """Valid time."""
         return self._datetime
