@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import abc
 import datetime
+
 import json
 import logging
 
@@ -253,7 +254,7 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
         # Add Hourly data for this day
         for row in item["hours"]:
             now = datetime.datetime.utcnow()
-            valid_time = datetime.datetime.fromtimestamp(
+            valid_time = datetime.datetime.utcfromtimestamp(
                 row["datetimeEpoch"]
             )
             # Temporary removed this, to see if it gets better result in the HA Weather Card

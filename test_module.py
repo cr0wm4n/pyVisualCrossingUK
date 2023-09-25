@@ -30,7 +30,7 @@ longitude = os.getenv("LONGITUDE")
 data = None
 
 # Attach to API and fetch data
-vcapi = VisualCrossing(api_key, latitude, longitude, days=7)
+vcapi = VisualCrossing(api_key, latitude, longitude, days=1)
 try:
     data: ForecastData = vcapi.fetch_data()
 except VisualCrossingUnauthorized as erru:
