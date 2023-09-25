@@ -252,7 +252,7 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
 
         # Add Hourly data for this day
         for row in item["hours"]:
-            now = datetime.datetime.now()
+            now = datetime.datetime.now().replace(tzinfo=UTC)
             valid_time = datetime.datetime.fromtimestamp(
                 row["datetimeEpoch"]
             )
