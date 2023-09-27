@@ -51,6 +51,7 @@ except VisualCrossingUnauthorized as erru:
 
 if data is not None:
     print("***** CURRENT CONDITIONS *****")
+    print("DATE & TIME: ", data.datetime)
     print("TEMPERATURE: ", data.temperature, " WIND GUST SPEED: ", data.wind_gust_speed)
     print("LOCATION: ", data.location_name)
     print(" ")
