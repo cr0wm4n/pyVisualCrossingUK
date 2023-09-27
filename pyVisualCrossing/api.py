@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import abc
 import datetime
+from datetime import timezone
 import json
 import logging
 
@@ -215,7 +216,7 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
         #     tzinfo=UTC
         # )
         day_str = item["datetime"]
-        day_obj = datetime.datetime.strptime(day_str, DATE_FORMAT)
+        day_obj = datetime.datetime.strptime(day_str, DATE_FORMAT).astimezone(timezone.utc)
         condition = item.get("conditions", None)
         cloudcover = item.get("cloudcover", None)
         icon = item.get("icon", None)
@@ -256,9 +257,9 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
         # Add Hourly data for this day
         for row in item["hours"]:
             # now = datetime.datetime.now().replace(tzinfo=UTC)
-            now = datetime.datetime.now()
+            now = datetime.datetime.now(timezone.utc)
             hour = row["datetime"]
-            day_hour_obj = datetime.datetime.strptime(f"{day_str} {hour}", DATE_TIME_FORMAT)
+            day_hour_obj = datetime.datetime.strptime(f"{day_str} {hour}", DATE_TIME_FORMAT).astimezone(timezone.utc)
             # valid_time = datetime.datetime.utcfromtimestamp(
             #     row["datetimeEpoch"]
             # ).replace(tzinfo=UTC)
