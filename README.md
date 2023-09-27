@@ -39,6 +39,21 @@ For an in-depth description of the Visual Crossing API, go [here](https://www.vi
 ## Languages
 Available languages include: ar (Arabic), bg (Bulgiarian), cs (Czech), da (Danish), de (German), el (Greek Modern), en (English), es (Spanish), fa (Farsi), fi (Finnish), fr (French), he (Hebrew), hu, (Hungarian), it (Italian), ja (Japanese), ko (Korean), nl (Dutch), pl (Polish), pt (Portuguese), ru (Russian),, sr (Serbian), sv (Swedish), tr (Turkish), uk (Ukranian), vi (Vietnamese) and zh (Chinese).
 
+## Metrics
+All records are returned using the *Metric* unit system. There is no conversion possible at the moment.
+
+| Weather variable	                   | Measurement Unit         |
+| -----------------------------------  | ------------------------ |
+| Datetime	                           | UTC datetime             |
+| Temperature, Heat Index & Wind Chill | Degrees Celcius          |
+| Precipitation	                       | Millimeters              |
+| snow	                               | Centimeters              |
+| Wind & Wind Gust	                   | Kilometers Per Hour      |
+| Visibility	                       | Kilometers               |
+| Pressure	                           | Millibars (Hectopascals) |
+| Solar Radiation	                   | W/m2                     |
+| Solar Energy	                       | MJ/m2                    |
+
 ## Icons
 We use the Iconset *icons2*, which gives a more detailed description of the conditions.
 
