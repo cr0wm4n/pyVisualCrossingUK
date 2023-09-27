@@ -14,7 +14,7 @@ import urllib.request
 
 import aiohttp
 
-from .const import SUPPORTED_LANGUAGES, VISUALCROSSING_BASE_URL
+from .const import DATE_FORMAT, DATE_TIME_FORMAT, SUPPORTED_LANGUAGES, VISUALCROSSING_BASE_URL
 from .data import ForecastData, ForecastDailyData, ForecastHourlyData
 
 UTC = datetime.timezone.utc
@@ -211,9 +211,11 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
 
     # Loop Through Records and add Daily and Hourly Forecast Data
     for item in api_result["days"]:
-        valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(
-            tzinfo=UTC
-        )
+        # valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(
+        #     tzinfo=UTC
+        # )
+        day_str = item["datetime"]
+        day_obj = datetime.datetime.strptime(day_str, DATE_FORMAT)
         condition = item.get("conditions", None)
         cloudcover = item.get("cloudcover", None)
         icon = item.get("icon", None)
@@ -231,7 +233,8 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
         wind_bearing = item.get("winddir", None)
 
         day_data = ForecastDailyData(
-            valid_time,
+            # valid_time,
+            day_obj,
             temperature,
             temp_low,
             apparent_temperature,
@@ -252,11 +255,14 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
 
         # Add Hourly data for this day
         for row in item["hours"]:
-            now = datetime.datetime.now().replace(tzinfo=UTC)
-            valid_time = datetime.datetime.utcfromtimestamp(
-                row["datetimeEpoch"]
-            ).replace(tzinfo=UTC)
-            if valid_time > now:
+            # now = datetime.datetime.now().replace(tzinfo=UTC)
+            now = datetime.datetime.now()
+            hour = row["datetime"]
+            day_hour_obj = datetime.datetime.strptime(f"{day_str} {hour}", DATE_TIME_FORMAT)
+            # valid_time = datetime.datetime.utcfromtimestamp(
+            #     row["datetimeEpoch"]
+            # ).replace(tzinfo=UTC)
+            if day_hour_obj > now:
                 condition = row.get("conditions", None)
                 cloudcover = row.get("cloudcover", None)
                 icon = row.get("icon", None)
@@ -273,7 +279,8 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
                 wind_bearing = row.get("winddir", None)
 
                 hour_data = ForecastHourlyData(
-                    valid_time,
+                    # valid_time,
+                    day_hour_obj,
                     temperature,
                     apparent_temperature,
                     condition,

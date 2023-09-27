@@ -2,6 +2,9 @@
 {
 	"name": "pyVisualCrossing",
 	"image": "python:3.11-bookworm",
+	"containerEnv": {
+		"TZ": "Europe/Copenhagen"
+	},
 	"postCreateCommand": "python3 -m pip install -r requirements.txt",
 	"runArgs": [
 		"-e",

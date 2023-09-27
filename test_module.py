@@ -10,6 +10,7 @@ from __future__ import annotations
 from dotenv import load_dotenv
 import os
 import logging
+import datetime
 
 from pyVisualCrossing import (
     VisualCrossing,
@@ -18,6 +19,7 @@ from pyVisualCrossing import (
     ForecastDailyData,
     ForecastHourlyData,
 )
+from pyVisualCrossing.const import DATE_FORMAT, DATE_TIME_FORMAT
 
 _LOGGER = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -28,6 +30,16 @@ api_key = os.getenv("API_KEY")
 latitude = os.getenv("LATITUDE")
 longitude = os.getenv("LONGITUDE")
 data = None
+
+# dato = "2023-09-27"
+# tid = "06:00:00"
+# dato_obj = datetime.datetime.strptime(dato, DATE_FORMAT)
+# dato_tid_obj = datetime.datetime.strptime(f"{dato} {tid}", DATE_TIME_FORMAT)
+# print(dato_obj, dato_tid_obj, datetime.datetime.now())
+# if dato_tid_obj > datetime.datetime.now():
+#     print("Include record")
+# else:
+#     print("DO NOT include record")
 
 # Attach to API and fetch data
 vcapi = VisualCrossing(api_key, latitude, longitude, days=1)
