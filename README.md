@@ -8,7 +8,7 @@ In order to get started you must create an Account with Visual Crossing and then
 
 Install the module by using this command in a terminal: `pip install pyVisualCrossing`
 
-And then see `test_module.py` and `async_test_module.py` in the `samples` directory for usage examples, both standard and async.
+And then see `test_module.py` and `async_test_module.py` for usage examples, both standard and async. (Async example not yet created)
 
 ## Parameters
 
