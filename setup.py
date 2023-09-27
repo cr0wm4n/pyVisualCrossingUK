@@ -7,7 +7,7 @@ with open("README.md") as fh:
 
 setuptools.setup(
     name="pyVisualCrossing",
-    version="0.1.15",
+    version="0.1.16",
     author="briis",
     author_email="bjarne@briis.com",
     description="Gets the weather data from Visual Crossing",
