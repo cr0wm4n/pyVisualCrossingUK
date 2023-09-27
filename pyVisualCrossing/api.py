@@ -212,9 +212,6 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
 
     # Loop Through Records and add Daily and Hourly Forecast Data
     for item in api_result["days"]:
-        # valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(
-        #     tzinfo=UTC
-        # )
         day_str = item["datetime"]
         day_obj = datetime.datetime.strptime(day_str, DATE_FORMAT).astimezone(timezone.utc)
         condition = item.get("conditions", None)
@@ -234,7 +231,6 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
         wind_bearing = item.get("winddir", None)
 
         day_data = ForecastDailyData(
-            # valid_time,
             day_obj,
             temperature,
             temp_low,
@@ -256,13 +252,9 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
 
         # Add Hourly data for this day
         for row in item["hours"]:
-            # now = datetime.datetime.now().replace(tzinfo=UTC)
             now = datetime.datetime.now(timezone.utc)
             hour = row["datetime"]
             day_hour_obj = datetime.datetime.strptime(f"{day_str} {hour}", DATE_TIME_FORMAT).astimezone(timezone.utc)
-            # valid_time = datetime.datetime.utcfromtimestamp(
-            #     row["datetimeEpoch"]
-            # ).replace(tzinfo=UTC)
             if day_hour_obj > now:
                 condition = row.get("conditions", None)
                 cloudcover = row.get("cloudcover", None)
@@ -280,7 +272,6 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
                 wind_bearing = row.get("winddir", None)
 
                 hour_data = ForecastHourlyData(
-                    # valid_time,
                     day_hour_obj,
                     temperature,
                     apparent_temperature,
@@ -311,9 +302,9 @@ def _get_current_data(api_result: dict) -> list[ForecastData]:
 
     item = api_result["currentConditions"]
 
-    valid_time = datetime.datetime.utcfromtimestamp(item["datetimeEpoch"]).replace(
-        tzinfo=UTC
-    )
+    day_str = datetime.datetime.today().strftime(DATE_FORMAT)
+    hour = item["datetime"]
+    day_hour_obj = datetime.datetime.strptime(f"{day_str} {hour}", DATE_TIME_FORMAT).astimezone(timezone.utc)
     condition = item.get("conditions", None)
     cloudcover = item.get("cloudcover", None)
     icon = item.get("icon", None)
@@ -334,7 +325,7 @@ def _get_current_data(api_result: dict) -> list[ForecastData]:
     description = api_result.get("description", None)
 
     current_condition = ForecastData(
-        valid_time,
+        day_hour_obj,
         apparent_temperature,
         condition,
         cloudcover,

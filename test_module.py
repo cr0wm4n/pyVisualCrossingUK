@@ -31,6 +31,7 @@ latitude = os.getenv("LATITUDE")
 longitude = os.getenv("LONGITUDE")
 data = None
 
+print (datetime.datetime.today().strftime(DATE_FORMAT))
 # dato = "2023-09-27"
 # tid = "06:00:00"
 # dato_obj = datetime.datetime.strptime(dato, DATE_FORMAT)
