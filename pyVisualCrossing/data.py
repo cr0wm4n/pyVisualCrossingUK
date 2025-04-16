@@ -20,7 +20,7 @@ class ForecastData:
         precipitation: float,
         precipitation_probability: int,
         pressure: float,
-        solarradiation: float,
+        solar_radiation: float,
         temperature: float,
         visibility: int,
         uv_index: int,
@@ -29,6 +29,16 @@ class ForecastData:
         wind_speed: float,
         location_name: str,
         description: str,
+        datetimeepoch: int,
+        snow: float,
+        snow_depth: float,
+        precipitation_type: str,
+        solar_energy: float,
+        severe_risk: float,
+        sunrise: str,
+        sunset: str,
+        moonphase: float,
+        
         forecast_daily: ForecastDailyData = None,
         forecast_hourly: ForecastHourlyData = None,
     ) -> None:
@@ -43,7 +53,7 @@ class ForecastData:
         self._precipitation = precipitation
         self._precipitation_probability = precipitation_probability
         self._pressure = pressure
-        self._solarradiation = solarradiation
+        self._solar_radiation = solar_radiation
         self._visibility = visibility
         self._temperature = temperature
         self._uv_index = uv_index
@@ -52,6 +62,15 @@ class ForecastData:
         self._wind_speed = wind_speed
         self._location_name = location_name
         self._description = description
+        self._datetimeepoch = datetimeepoch
+        self._snow = snow
+        self._snow_depth = snow_depth
+        self._precipitation_type = precipitation_type
+        self._solar_energy = solar_energy
+        self._severe_risk = severe_risk
+        self._sunrise = sunrise
+        self._sunset = sunset
+        self._moonphase = moonphase
         self._forecast_daily = forecast_daily
         self._forecast_hourly = forecast_hourly
 
@@ -106,9 +125,9 @@ class ForecastData:
         return self._pressure
 
     @property
-    def solarradiation(self) -> float:
+    def solar_radiation(self) -> float:
         """Solar Radiation (w/m2)."""
-        return self._solarradiation
+        return self._solar_radiation
 
     @property
     def visibility(self) -> int:
@@ -140,6 +159,46 @@ class ForecastData:
         """Valid time."""
         return self._datetime
 
+    @property
+    def datetimeepoch(self) -> int:
+        """ datetimeEpoch."""
+        return self._datetimeepoch
+
+    @property
+    def snow(self) -> float:
+        """Snow."""
+        return self._snow
+
+    @property
+    def snow_depth(self) -> float:
+        """Snow Depth."""
+        return self._snow_depth
+
+    @property
+    def precipitation_type(self) -> str:
+        """Precipitation Type text."""
+        return self._precipitation_type
+
+    @property
+    def solar_energy(self) -> float:
+        """Solar Energy."""
+        return self._solar_energy
+
+    @property
+    def severe_risk(self) -> float:
+        """Severe Weather Risk."""
+        return self._severe_risk
+
+    @property
+    def sunrise(self) -> str:
+        """Sunrise."""
+        return self._sunrise
+
+    @property
+    def sunset(self) -> str:
+        """Sunset."""
+        return self._sunset
+        
     @property
     def location_name(self) -> str:
         """Location name."""
