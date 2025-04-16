@@ -40,7 +40,7 @@ For an in-depth description of the Visual Crossing API, go [here](https://www.vi
 Available languages include: **ar** (Arabic), **bg** (Bulgiarian), **cs** (Czech), **da** (Danish), **de** (German), **el** (Greek Modern), **en** (English), **es** (Spanish), **fa** (Farsi), **fi** (Finnish), **fr** (French), **he** (Hebrew), **hu**, (Hungarian), **it** (Italian), **ja** (Japanese), **ko** (Korean), **nl** (Dutch), **pl** (Polish), **pt** (Portuguese), **sr** (Serbian), **sv** (Swedish), **tr** (Turkish), **uk** (Ukranian), **vi** (Vietnamese) and **zh** (Chinese).
 
 ## Metrics
-All records are returned using the *Metric* unit system. There is no conversion possible at the moment.
+All records are returned using the *UK* unit system. There is no conversion possible at the moment.
 
 | Weather variable	                   | Measurement Unit         |
 | -----------------------------------  | ------------------------ |
@@ -48,8 +48,8 @@ All records are returned using the *Metric* unit system. There is no conversion 
 | Temperature, Heat Index & Wind Chill | Degrees Celcius          |
 | Precipitation	                       | Millimeters              |
 | snow	                               | Centimeters              |
-| Wind & Wind Gust	                   | Kilometers Per Hour      |
-| Visibility	                       | Kilometers               |
+| Wind & Wind Gust	                   | Miles Per Hour      |
+| Visibility	                       | Miles               |
 | Pressure	                           | Millibars (Hectopascals) |
 | Solar Radiation	                   | W/m2                     |
 | Solar Energy	                       | MJ/m2                    |
