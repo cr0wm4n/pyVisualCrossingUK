@@ -17,6 +17,6 @@ from pyVisualCrossing.data import (
 from pyVisualCrossing.const import SUPPORTED_LANGUAGES
 
 __title__ = "pyVisualCrossingUK"
-__version__ = "0.1.16.11"
+__version__ = "0.1.16.12"
 __author__ = "cr0wm4n"
 __license__ = "MIT"
