@@ -229,6 +229,26 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
         wind_speed = item.get("windspeed", None)
         wind_gust_speed = item.get("windgust", None)
         wind_bearing = item.get("winddir", None)
+        datetimeepoch = item.get("datetimeEpoch", None)
+        temp_high = item.get("tempmax", None)
+        apparent_temperature_high = item.get("feelslikemax", None)
+        apparent_temperature_low = item.get("feelslikemin", None)
+        precipitation_cover = item.get("precipcover", None)
+        precipitation_type = item.get("preciptype", None)
+        snow = item.get("snow", None)
+        snow_depth = item.get("snowdepth", None)
+        visibility = item.get("visibility", None)
+        solar_radiation = item.get("solarradiation", None)
+        solar_energy = item.get("solarenergy", None)
+        severe_risk = item.get("severerisk", None)
+        wind_speed_max = item.get("windspeedmax", None)
+        wind_speed_mean = item.get("windspeedmean", None)
+        wind_speed_min = item.get("windspeedmin", None)
+        sunrise = item.get("sunrise", None)
+        sunset = item.get("sunset", None)
+        moonphase = item.get("moonphase", None)
+        description = item.get("description", None)
+
 
         day_data = ForecastDailyData(
             day_obj,
@@ -247,6 +267,25 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
             wind_speed,
             wind_gust_speed,
             uv_index,
+            datetimeepoch,
+            temp_high,
+            apparent_temperature_high,
+            apparent_temperature_low,
+            precipitation_cover,
+            precipitation_type,
+            snow,
+            snow_depth,
+            visibility,
+            solar_radiation,
+            solar_energy,
+            severe_risk,
+            wind_speed_max,
+            wind_speed_mean,
+            wind_speed_min,
+            sunrise,
+            sunset,
+            moonphase,
+            description,
         )
         forecast_daily.append(day_data)
 
@@ -270,6 +309,15 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
                 wind_speed = row.get("windspeed", None)
                 wind_gust_speed = row.get("windgust", None)
                 wind_bearing = row.get("winddir", None)
+                datetimeepoch = row.get("datetimeEpoch", None)
+                snow = row.get("snow", None)
+                snow_depth = row.get("snowdepth", None)
+                precipitation_type = row.get("preciptype", None)
+                visibility = row.get("visibility", None)
+                solar_radiation = row.get("solarradiation", None)
+                solar_energy = row.get("solarenergy", None)
+                severe_risk = row.get("severerisk", None)
+                
 
                 hour_data = ForecastHourlyData(
                     day_hour_obj,
@@ -287,6 +335,14 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
                     wind_gust_speed,
                     wind_speed,
                     uv_index,
+                    datetimeepoch,
+                    snow,
+                    snow_depth,
+                    precipitation_type,
+                    visibility,
+                    solar_radiation,
+                    solar_energy,
+                    severe_risk,
                 )
                 forecast_hourly.append(hour_data)
 
@@ -314,7 +370,7 @@ def _get_current_data(api_result: dict) -> list[ForecastData]:
     precipitation = item.get("precip", None)
     precipitation_probability = item.get("precipprob", None)
     humidity = item.get("humidity", None)
-    solarradiation = item.get("solarradiation", None)
+    solar_radiation = item.get("solarradiation", None)
     visibility = item.get("visibility", None)
     pressure = item.get("pressure", None)
     uv_index = item.get("uvindex", None)
@@ -323,6 +379,16 @@ def _get_current_data(api_result: dict) -> list[ForecastData]:
     wind_bearing = item.get("winddir", None)
     location = api_result.get("address", None)
     description = api_result.get("description", None)
+    datetimeepoch = item.get("datetimeEpoch", None)
+    snow = item.get("snow", None)
+    snow_depth = item.get("snowdepth", None)
+    precipitation_type = item.get("preciptype", None)
+    solar_energy = item.get("solarenergy", None)
+    severe_risk = item.get("severrisk", None)
+    sunrise = item.get("sunrise", None)
+    sunset = item.get("sunset", None)
+    moonphase = item.get("moonphase", None)
+    
 
     current_condition = ForecastData(
         day_hour_obj,
@@ -335,7 +401,7 @@ def _get_current_data(api_result: dict) -> list[ForecastData]:
         precipitation,
         precipitation_probability,
         pressure,
-        solarradiation,
+        solar_radiation,
         temperature,
         visibility,
         uv_index,
@@ -344,6 +410,15 @@ def _get_current_data(api_result: dict) -> list[ForecastData]:
         wind_speed,
         location,
         description,
+        datetimeepoch,
+        snow,
+        snow_depth,
+        precipitation_type,
+        solar_energy,
+        severe_risk,
+        sunrise,
+        sunset,
+        moonphase,
     )
 
     return current_condition
