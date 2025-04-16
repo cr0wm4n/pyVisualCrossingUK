@@ -72,7 +72,7 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
         self, api_key: str, latitude: float, longitude: float, days: int, language: str
     ) -> dict[str, Any]:
         """Get data from API."""
-        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
+        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=uk&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
         _LOGGER.debug("URL: %s", api_url)
 
         try:
@@ -105,7 +105,7 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
         self, api_key: str, latitude: float, longitude: float, days: int, language: str
     ) -> dict[str, Any]:
         """Get data from API."""
-        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=metric&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
+        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=uk&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
 
         is_new_session = False
         if self.session is None:
