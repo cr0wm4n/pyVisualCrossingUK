@@ -3,7 +3,7 @@
 	"name": "pyVisualCrossingUK",
 	"image": "python:3.12-bookworm",
 	"containerEnv": {
-		"TZ": "Europe/Copenhagen"
+		"TZ": "Europe/London"
 	},
 	"postCreateCommand": "python3 -m pip install -r requirements.txt",
 	"runArgs": [
