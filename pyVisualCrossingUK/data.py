@@ -200,6 +200,11 @@ class ForecastData:
         return self._sunset
         
     @property
+    def moonphase(self) -> float:
+        """Moonphase."""
+        return self._moonphase
+        
+    @property
     def location_name(self) -> str:
         """Location name."""
         return str(self._location_name).capitalize()
