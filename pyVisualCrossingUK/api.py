@@ -317,7 +317,7 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
                 solar_radiation = row.get("solarradiation", None)
                 solar_energy = row.get("solarenergy", None)
                 severe_risk = row.get("severerisk", None)
-                
+
 
                 hour_data = ForecastHourlyData(
                     day_hour_obj,
@@ -388,7 +388,7 @@ def _get_current_data(api_result: dict) -> list[ForecastData]:
     sunrise = item.get("sunrise", None)
     sunset = item.get("sunset", None)
     moonphase = item.get("moonphase", None)
-    
+
 
     current_condition = ForecastData(
         day_hour_obj,

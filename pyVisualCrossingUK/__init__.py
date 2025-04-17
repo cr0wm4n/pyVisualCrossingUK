@@ -1,7 +1,7 @@
 """Python Wrapper for Visual Crossing Weather API."""
 from __future__ import annotations
 
-from pyVisualCrossing.api import (
+from pyVisualCrossingUK.api import (
     VisualCrossing,
     VisualCrossingBadRequest,
     VisualCrossingException,
@@ -9,14 +9,14 @@ from pyVisualCrossing.api import (
     VisualCrossingUnauthorized,
     VisualCrossingTooManyRequests,
 )
-from pyVisualCrossing.data import (
+from pyVisualCrossingUK.data import (
     ForecastData,
     ForecastDailyData,
     ForecastHourlyData,
 )
-from pyVisualCrossing.const import SUPPORTED_LANGUAGES
+from pyVisualCrossingUK.const import SUPPORTED_LANGUAGES
 
 __title__ = "pyVisualCrossingUK"
-__version__ = "0.1.16.12"
+__version__ = "0.1.16.13"
 __author__ = "cr0wm4n"
 __license__ = "MIT"

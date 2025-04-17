@@ -12,14 +12,14 @@ import os
 import logging
 import datetime
 
-from pyVisualCrossing import (
+from pyVisualCrossingUK import (
     VisualCrossing,
     VisualCrossingUnauthorized,
     ForecastData,
     ForecastDailyData,
     ForecastHourlyData,
 )
-from pyVisualCrossing.const import DATE_FORMAT, DATE_TIME_FORMAT
+from pyVisualCrossingUK.const import DATE_FORMAT, DATE_TIME_FORMAT
 
 _LOGGER = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)

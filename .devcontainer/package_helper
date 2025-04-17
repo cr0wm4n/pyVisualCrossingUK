@@ -3,7 +3,7 @@
 function BuildPackage {
   echo "Building package..."
   cd /workspaces/pypi_visualcrossing
-  python pyVisualCrossing/setup.py sdist
+  python pyVisualCrossingUK/setup.py sdist
   echo "Package built!"
 }
 

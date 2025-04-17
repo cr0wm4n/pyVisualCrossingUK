@@ -1,6 +1,6 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
-	"name": "pyVisualCrossing",
+	"name": "pyVisualCrossingUK",
 	"image": "python:3.12-bookworm",
 	"containerEnv": {
 		"TZ": "Europe/Copenhagen"
