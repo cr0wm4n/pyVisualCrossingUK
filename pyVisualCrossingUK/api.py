@@ -15,7 +15,7 @@ import urllib.request
 
 import aiohttp
 
-from .const import DATE_FORMAT, DATE_TIME_FORMAT, SUPPORTED_LANGUAGES, VISUALCROSSING_BASE_URL
+from .const import DATE_FORMAT, DATE_TIME_FORMAT, SUPPORTED_LANGUAGES, SUPPORTED_UNIT_GROUPS, VISUALCROSSING_BASE_URL
 from .data import ForecastData, ForecastDailyData, ForecastHourlyData
 
 UTC = datetime.timezone.utc
@@ -48,14 +48,14 @@ class VisualCrossingAPIBase:
 
     @abc.abstractmethod
     def fetch_data(
-        self, api_key: str, latitude: float, longitude: float, days: int, language: str
+        self, api_key: str, latitude: float, longitude: float, days: int, language: str, unitgroup: str
     ) -> dict[str, Any]:
         """Override this."""
         raise NotImplementedError("users must define fetch_data to use this base class")
 
     @abc.abstractmethod
     async def async_fetch_data(
-        api_key: str, latitude: float, longitude: float, days: int, language: str
+        api_key: str, latitude: float, longitude: float, days: int, language: str, unitgroup: str
     ) -> dict[str, Any]:
         """Override this."""
         raise NotImplementedError("users must define fetch_data to use this base class")
@@ -69,10 +69,10 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
         self.session = None
 
     def fetch_data(
-        self, api_key: str, latitude: float, longitude: float, days: int, language: str
+        self, api_key: str, latitude: float, longitude: float, days: int, language: str, unitgroup: str
     ) -> dict[str, Any]:
         """Get data from API."""
-        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=uk&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
+        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup={unitgroup}&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
         _LOGGER.debug("URL: %s", api_url)
 
         try:
@@ -102,10 +102,10 @@ class VisualCrossingAPI(VisualCrossingAPIBase):
         return None
 
     async def async_fetch_data(
-        self, api_key: str, latitude: float, longitude: float, days: int, language: str
+        self, api_key: str, latitude: float, longitude: float, days: int, language: str, unitgroup: str
     ) -> dict[str, Any]:
         """Get data from API."""
-        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup=uk&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
+        api_url = f"{VISUALCROSSING_BASE_URL}{latitude},{longitude}/today/next{days}days?unitGroup={unitgroup}&key={api_key}&contentType=json&iconSet=icons2&lang={language}"
 
         is_new_session = False
         if self.session is None:
@@ -149,6 +149,7 @@ class VisualCrossing:
         longitude: float,
         days: int = 14,
         language: str = "en",
+        unitgroup: str = "uk",
         session: aiohttp.ClientSession = None,
         api: VisualCrossingAPIBase = VisualCrossingAPI(),
     ) -> None:
@@ -158,6 +159,7 @@ class VisualCrossing:
         self._longitude = longitude
         self._days = days
         self._language = language
+        self._unitgroup = unitgroup
         self._api = api
         self._json_data = None
 
@@ -170,6 +172,9 @@ class VisualCrossing:
         if language not in SUPPORTED_LANGUAGES:
             self._language = "en"
 
+        if unitgroup not in SUPPORTED_UNIT_GROUPS:
+            self._unitgroup = "uk"
+
     def fetch_data(self) -> list[ForecastData]:
         """Return list of weather data."""
 
@@ -179,6 +184,7 @@ class VisualCrossing:
             self._longitude,
             self._days,
             self._language,
+            self._unitgroup,
         )
 
         return _fetch_data(self._json_data)
@@ -192,6 +198,7 @@ class VisualCrossing:
             self._longitude,
             self._days,
             self._language,
+            self._unitgroup,
         )
 
         return _fetch_data(self._json_data)
