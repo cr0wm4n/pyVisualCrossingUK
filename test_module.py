@@ -4,6 +4,7 @@ Create a .env file and add:
 API_KEY: Your API key from Visual Crossing
 LATITUDE: The latitude you want to get data for
 LONGITUDE: The longitude you want to get data for.
+UNITGROUP: uk, metric, or us measurements
 """
 from __future__ import annotations
 
@@ -29,6 +30,7 @@ load_dotenv()
 api_key = os.getenv("API_KEY")
 latitude = os.getenv("LATITUDE")
 longitude = os.getenv("LONGITUDE")
+unitgroup = os.getenv("UNITGROUP")
 data = None
 
 print (datetime.datetime.today().strftime(DATE_FORMAT))
@@ -43,7 +45,7 @@ print (datetime.datetime.today().strftime(DATE_FORMAT))
 #     print("DO NOT include record")
 
 # Attach to API and fetch data
-vcapi = VisualCrossing(api_key, latitude, longitude, days=1)
+vcapi = VisualCrossing(api_key, latitude, longitude, unitgroup, days=1)
 try:
     data: ForecastData = vcapi.fetch_data()
 except VisualCrossingUnauthorized as erru:
