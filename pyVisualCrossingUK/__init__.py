@@ -14,7 +14,10 @@ from pyVisualCrossingUK.data import (
     ForecastDailyData,
     ForecastHourlyData,
 )
-from pyVisualCrossingUK.const import SUPPORTED_LANGUAGES
+from pyVisualCrossingUK.const import (
+    SUPPORTED_LANGUAGES,
+    SUPPORTED_UNIT_GROUPS,
+    )
 
 __title__ = "pyVisualCrossingUK"
 __version__ = "0.1.16.16"
