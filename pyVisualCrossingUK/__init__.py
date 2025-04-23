@@ -20,6 +20,6 @@ from pyVisualCrossingUK.const import (
     )
 
 __title__ = "pyVisualCrossingUK"
-__version__ = "0.1.16.20"
+__version__ = "0.1.16.17"
 __author__ = "cr0wm4n"
 __license__ = "MIT"
