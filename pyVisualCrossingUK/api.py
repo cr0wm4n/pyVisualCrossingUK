@@ -218,7 +218,7 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
     forecast_hourly = []
 
     match unitgroup:
-        case "uk:
+        case "uk":
             temperature_unit = "°C"
             precipitation_unit = "mm"
             visibility_unit = "mi"
