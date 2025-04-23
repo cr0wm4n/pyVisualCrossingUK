@@ -217,26 +217,6 @@ def _fetch_data(api_result: dict) -> list[ForecastData]:
     forecast_daily = []
     forecast_hourly = []
 
-    match self._unitgroup:
-        case "uk":
-            temperature_unit = "°C"
-            precipitation_unit = "mm"
-            visibility_unit = "mi"
-            wind_speed_unit = "mph"
-            pressure_unit = "mbar"
-        case "metric":
-            temperature_unit = "°C"
-            precipitation_unit = "mm"
-            visibility_unit = "km"
-            wind_speed_unit = "km/h"
-            pressure_unit = "mbar"
-        case "us":
-            temperature_unit = "°F"
-            precipitation_unit = "in"
-            visibility_unit = "mi"
-            wind_speed_unit = "mph"
-            pressure_unit = "mbar"
-
     # Loop Through Records and add Daily and Hourly Forecast Data
     for item in api_result["days"]:
         day_str = item["datetime"]
