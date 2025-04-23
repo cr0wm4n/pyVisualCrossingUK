@@ -19,14 +19,19 @@ class ForecastData:
         icon: str,
         precipitation: float,
         precipitation_probability: int,
+        precipitation_unit: str,
         pressure: float,
+        pressure_unit: str,
         solar_radiation: float,
         temperature: float,
+        temperature_unit: str,
         visibility: int,
+        visibility_unit: str,
         uv_index: int,
         wind_bearing: int,
         wind_gust_speed: float,
         wind_speed: float,
+        wind_speed_unit: str,
         location_name: str,
         description: str,
         datetimeepoch: int,
@@ -51,15 +56,19 @@ class ForecastData:
         self._humidity = humidity
         self._icon = icon
         self._precipitation = precipitation
+        self._precipitation_unit = precipitation_unit
         self._precipitation_probability = precipitation_probability
         self._pressure = pressure
         self._solar_radiation = solar_radiation
         self._visibility = visibility
+        self._visibility_unit = visibility_unit
         self._temperature = temperature
+        self._temperature_unit = temperature_unit
         self._uv_index = uv_index
         self._wind_bearing = wind_bearing
         self._wind_gust_speed = wind_gust_speed
         self._wind_speed = wind_speed
+        self._wind_speed_unit = wind_speed_unit
         self._location_name = location_name
         self._description = description
         self._datetimeepoch = datetimeepoch
@@ -78,7 +87,11 @@ class ForecastData:
     def temperature(self) -> float:
         """Air temperature (Celcius)."""
         return self._temperature
-
+    @property
+    def temperature_unit(self) -> str:
+        """Air temperature_unit ."""
+        return self._temperature_unit
+        
     @property
     def dew_point(self) -> float:
         """Dew Point (Celcius)."""
@@ -115,6 +128,11 @@ class ForecastData:
         return self._precipitation
 
     @property
+    def precipitation_unit(self) -> str:
+        """Precipitation_unit."""
+        return self._precipitation_unit
+
+    @property
     def precipitation_probability(self) -> int:
         """Posobility of Precipiation (%)."""
         return self._precipitation_probability
@@ -125,6 +143,11 @@ class ForecastData:
         return self._pressure
 
     @property
+    def pressure_unit(self) -> str:
+        """Sea Level Pressure_unit."""
+        return self._pressure_unit
+        
+    @property
     def solar_radiation(self) -> float:
         """Solar Radiation (w/m2)."""
         return self._solar_radiation
@@ -133,6 +156,11 @@ class ForecastData:
     def visibility(self) -> int:
         """Visibility (km)."""
         return self._visibility
+
+    @property
+    def visibility_unit(self) -> str:
+        """Visibility_unit."""
+        return self._visibility_unit
 
     @property
     def wind_bearing(self) -> float:
@@ -148,6 +176,11 @@ class ForecastData:
     def wind_speed(self) -> float:
         """Wind speed (m/s)."""
         return self._wind_speed
+
+    @property
+    def wind_speed_unit(self) -> str:
+        """Wind speed_unit."""
+        return self._wind_speed_unit
 
     @property
     def uv_index(self) -> float:
